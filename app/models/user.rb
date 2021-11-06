@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+    include GlobalID::Identification
     has_one :inventory
 
     has_secure_password
