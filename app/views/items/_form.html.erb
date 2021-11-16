@@ -24,7 +24,7 @@
     <%= f.number_field :quantity, class: "form-control" %>
   </div>
   <div class = "field">
-    <%= f.hidden_field :inventory_id, value: Inventory.where(user_id: session[:user_id]).pluck(:id) %>
+    <%= f.hidden_field :inventory_id, value: session[:inventory_id] %>
   </div>
   
   <div class="actions">

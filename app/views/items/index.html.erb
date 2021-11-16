@@ -1,6 +1,5 @@
 <p id="notice"><%= notice %></p>
-
-<h1>Listing Items</h1>
+<h1>Listing <%= Inventory.find(session[:inventory_id]).name %> items</h1>
 
 <table class="table table-bordered" >
   <thead>
@@ -19,8 +18,8 @@
         <td><%= item.description %></td>
         <td><%= item.quantity %></td>
         <td><%= link_to 'Show', item %></td>
-        <td><%= link_to 'Edit', edit_item_path(item) %></td>
-        <td><%= link_to 'Destroy', item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= (Inventory.find_by(id: item.inventory_id).primary_user_id == session[:user_id]) || (Inventory.find_by(id: item.inventory_id).edit_flag) ? (link_to 'Edit', edit_item_path(item)) : ' ' %></td>
+        <td><%= (Inventory.find_by(id: item.inventory_id).primary_user_id == session[:user_id]) || (Inventory.find_by(id: item.inventory_id).destroy_flag) ? (link_to 'Destroy', item, method: :delete, data: { confirm: 'Are you sure?' }) : ' ' %></td>
       </tr>
     <% end %>
   </tbody>

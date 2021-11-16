@@ -1,0 +1,27 @@
+<h1>Share <%= Inventory.find_by(id: @inventory.id).name %> inventory </h1>
+<%= form_for(@inventory) do |f| %>
+    <div class="mb-3">
+      <%= f.label :select_users%><br />
+    </div>
+    <% for user in User.all %> 
+        <div class="mb-3">
+            <%= check_box_tag "inventory[user_ids][]", user.id, @inventory.users.include?(user) %>
+            <%=h user.email %> 
+            <br/>
+        </div> 
+    <% end %>
+        <div class="mb-3">
+            <%= f.label :Can_do_the_following %><br/>
+        </div>        
+        <div class="mb-3">
+            <%= f.check_box :edit_flag %>
+            <%= f.label :edit %>
+        </div>
+        <div class="mb-3">
+            <%= f.check_box :destroy_flag %>
+            <%= f.label :destroy %>
+        </div>
+    <div class="mb-3">
+      <%= f.submit "Share", class: "btn btn-primary" %>
+    </div>
+<% end %>

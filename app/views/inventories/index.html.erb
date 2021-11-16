@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Inventories</h1>
+
+<table class="table table-bordered" >
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th colspan="4"></th>
+      <th>Owner</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @inventories.each do |inventory| %>
+      <tr>
+        
+        <td><%= link_to inventory.name, items_path(inventory) %></td>
+        <td><%= link_to 'Show', inventory %></td>
+        <td><%= inventory.primary_user_id==session[:user_id] || (inventory.edit_flag) ? (link_to 'Edit', edit_inventory_path(inventory)) : ' ' %></td>
+        <td><%= inventory.primary_user_id==session[:user_id] || (inventory.destroy_flag) ? (link_to 'Destroy', inventory, method: :delete, data: { confirm: 'Are you sure?' }) : ' ' %></td>
+        <td><%= inventory.primary_user_id==session[:user_id] ? (button_to 'Share', share_inventory_path(inventory)) : ' ' %></td>
+        <td><%= User.find_by(id: inventory.primary_user_id).email %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Inventory', new_inventory_path, class: "btn btn-outline-secondary" %>

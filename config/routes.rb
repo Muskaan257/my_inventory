@@ -1,10 +1,9 @@
 Rails.application.routes.draw do
-  # resources :inventories
+  resources :inventories do
+    post :share, on: :member
+  end
   resources :items
-  # resources :inventories do
-  #   resources :items
-  # end
-  
+
   get "about", to: "about#index"
 
   root to: "main#index"

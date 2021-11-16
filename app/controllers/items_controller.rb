@@ -4,7 +4,8 @@ class ItemsController < ApplicationController
   # GET /items
   # GET /items.json
   def index
-    @items = User.find_by(id: session[:user_id]).inventory.items
+    session[:inventory_id]=(params[:format])? params[:format]:session[:inventory_id]
+    @items = Inventory.find_by(id: session[:inventory_id]).items
   end
 
   # GET /items/1
@@ -64,6 +65,6 @@ class ItemsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def item_params
-      params.require(:item).permit(:name, :description, :quantity, :inventory_id)
+      params.require(:item).permit(:name, :description, :quantity, :inventory_id, :inventory)
     end
 end
